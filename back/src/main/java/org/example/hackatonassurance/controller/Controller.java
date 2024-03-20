@@ -29,26 +29,25 @@ public class Controller {
     }
 
     @PostMapping("/distanceParcourue")
-    public ResponseEntity<String> receptionDistanceParcourue(@RequestBody String distanceParcourue){
+    public ResponseEntity<String> receptionDistanceParcourue(@RequestBody int distanceTotaleParcourue){
         try {
-
+            facadeUtilisateur.getDistanceParcourue(distanceTotaleParcourue);
             return ResponseEntity.ok("Distance parcourue reçue avec succès");
         }catch (Exception e) {
             return ResponseEntity.status(500).body("Erreur lors de la reception de la distance parcourue : " + e.getMessage());
         }
     }
 
-    @GetMapping("/infractions")
-    public ResponseEntity<String> recupMensualite() {
+    @GetMapping("/tauxReduction")
+    public ResponseEntity<String> recupTauxReduction() {
         try {
             LocalDate dateActuelle = LocalDate.now();
             facadeUtilisateur.compterInfractions(dateActuelle.getYear(), dateActuelle.getMonthValue());
-            int mensualite = facadeUtilisateur.calculerMensualite();
-            return ResponseEntity.ok(String.valueOf(mensualite));
+            int tauxReduction = facadeUtilisateur.calculerTauxReduction();
+            return ResponseEntity.ok(String.valueOf(tauxReduction));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Erreur lors de la récupération de la mensualité : " + e.getMessage());
+            return ResponseEntity.status(500).body("Erreur lors de la récupération du taux de réduction : " + e.getMessage());
         }
-
     }
 
 

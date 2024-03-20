@@ -10,8 +10,13 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8081/infractions
+GET http://localhost:8081/tauxReduction
 
 ###
+
+POST http://localhost:8081/distanceParcourue
+Content-Type: application/json
+
+1000
 
 

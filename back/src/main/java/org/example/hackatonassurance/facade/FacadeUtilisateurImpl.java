@@ -20,11 +20,6 @@ public class FacadeUtilisateurImpl implements FacadeUtilisateur {
     }
 
     @Override
-    public Assure getAssure() {
-        return assure;
-    }
-
-    @Override
     public void ajouterDonneesRecuesAccelerometre(Accelerometre accelerometre) {
         this.donneesRecuesAccelerometre.add(accelerometre);
     }
@@ -37,36 +32,45 @@ public class FacadeUtilisateurImpl implements FacadeUtilisateur {
                 cptInfractions++;
             }
         }
-        assure.getBulletin().setInfractions(cptInfractions);
+        this.assure.getBulletin().setInfractions(cptInfractions);
     }
 
     public void scoreUpdate(){
-        int score = assure.getBulletin().getScore();
-        int infractions = assure.getBulletin().getInfractions();
+        int score = this.assure.getBulletin().getScore();
+        int infractions = this.assure.getBulletin().getInfractions();
+        int distanceTotale = this.assure.getBulletin().getDistanceTotaleParcourue();
         if (infractions > 0) {
             score -= infractions;
         }
-        assure.getBulletin().setScore(score);
+        if (distanceTotale >= 2) {
+            score -= (int) Math.floor((distanceTotale/2));
+        }
+        this.assure.getBulletin().setScore(score);
     }
 
     @Override
-    public int calculerMensualite() {
+    public int calculerTauxReduction() {
         Bulletin bulletin = assure.getBulletin();
         scoreUpdate();
         int scoreAssure = bulletin.getScore();
         if (scoreAssure < 1) {
-            assure.setMensualite(100);
-        } else if (scoreAssure >= 1 && scoreAssure <= 200) {
-            assure.setMensualite(95);
-        } else if (scoreAssure > 200 && scoreAssure <= 400) {
-                assure.setMensualite(90);
-        } else if (scoreAssure > 400 && scoreAssure <= 600) {
-            assure.setMensualite(85);
-        } else if (scoreAssure > 600 && scoreAssure <= 800) {
-            assure.setMensualite(80);
-        } else if (scoreAssure > 800) {
-            assure.setMensualite(75);
+            this.assure.setMensualite(0);
+        } else if (scoreAssure <= 200) {
+            this.assure.setMensualite(5);
+        } else if (scoreAssure <= 400) {
+            this.assure.setMensualite(10);
+        } else if (scoreAssure <= 600) {
+            this.assure.setMensualite(15);
+        } else if (scoreAssure <= 800) {
+            this.assure.setMensualite(20);
+        } else {
+            this.assure.setMensualite(25);
         }
-        return assure.getMensualite();
+        return this.assure.getMensualite();
+    }
+
+    @Override
+    public void getDistanceParcourue(int distanceTotaleParcourue){
+        this.assure.getBulletin().setDistanceTotaleParcourue(distanceTotaleParcourue);
     }
 }

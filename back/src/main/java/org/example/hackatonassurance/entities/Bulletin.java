@@ -9,5 +9,6 @@ import lombok.*;
 @ToString
 public class Bulletin {
     private int infractions;
+    private int distanceTotaleParcourue;
     private int score = 1000;
 }
