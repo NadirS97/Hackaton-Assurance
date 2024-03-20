@@ -1,0 +1,22 @@
+<div class="flex items-center justify-center h-screen w-full ">
+  <form [formGroup]="connexionForm" class="flex flex-col items-center w-full px-48">
+    <div class="titleConnexion mb-4">
+      <h1 class="text-2xl font-bold">CONNEXION</h1>
+    </div>
+    <div class="formConnexionInput form-group w-1/2 mb-4">
+      <label for="inputConnexionMail" class="text-sm">Adresse mail</label>
+      <input id="inputConnexionMail" type="email" class="form-control border-2 rounded-md px-4 py-2 w-full" formControlName="email" [ngClass]="{ 'border-red-500': connexionForm.get('email').invalid && connexionForm.get('email').touched }">
+      <div *ngIf="connexionForm.get('email').invalid && connexionForm.get('email').touched" class="text-red-500 text-sm">Adresse mail invalide</div>
+    </div>
+
+    <div class="formConnexionInput form-group w-1/2 mb-4">
+      <label for="inputConnexionPassword" class="text-sm">Mot de passe</label>
+      <input id="inputConnexionPassword" type="password" class="form-control border-2 rounded-md px-4 py-2 w-full" formControlName="password" [ngClass]="{ 'border-red-500': connexionForm.get('password').invalid && connexionForm.get('password').touched }">
+      <div *ngIf="connexionForm.get('password').invalid && connexionForm.get('password').touched" class="text-red-500 text-sm">Mot de passe invalide</div>
+    </div>
+
+    <div class="formConnexionBouton w-1/2 p-4 flex items-end justify-end">
+      <button (click)="seConnecter()" [disabled]="connexionForm.invalid" type="button" class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded-md disabled:border-2 disabled:border-blue-600 hover:bg-blue-600 disabled:bg-white disabled:text-blue-600 ">Se connecter</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,33 @@
+<div class="container h-screen mx-auto pt-16">
+  <div class="text-center">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Bienvenue Hackaton</h1>
+    <p class="text-lg text-gray-600">Votre espace personnel</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
+    <div class="bg-white p-4 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold text-gray-800">Votre assurance auto</h2>
+      <ul class="list-disc my-4 mx-8">
+        <li class="text-gray-700">Prix: {{ assuranceAuto.prix }} $</li>
+        <li class="text-gray-700">Réduction: {{ assuranceAuto.reduction }} $</li>
+      </ul>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold text-gray-800">Vos statistiques de conduite</h2>
+      <ul class="list-disc my-4 mx-8">
+        <li class="text-gray-700">Kilomètres parcourus ce mois: {{ statistiquesConduite.kilometresParcourus }} km</li>
+        <li class="text-gray-700">Freinages brusques: {{ statistiquesConduite.freinagesBrusques }}</li>
+        <li class="text-gray-700">Accélérations imprudentes: {{ statistiquesConduite.accelerationsImprudentes }}</li>
+        <li class="text-gray-700">Nombre de points perdus: {{ statistiquesConduite.pointsPerdus }}</li>
+        <li class="text-gray-700">Nombre de points restants: {{ statistiquesConduite.pointsRestants }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-10">
+    <h2 class="text-xl font-bold text-gray-800">Conseils pour améliorer votre conduite</h2>
+    <ul class="list-disc my-4 mx-8">
+      <li *ngFor="let conseil of conseilsConduite" class="text-gray-700">{{ conseil }}</li>
+    </ul>
+  </div>
+</div>
