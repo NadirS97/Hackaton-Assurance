@@ -25,7 +25,7 @@ public class FacadeUtilisateurImpl implements FacadeUtilisateur {
     }
 
     @Override
-    public void compterInfractions(int annee, int mois) {
+    public int compterInfractions(int annee, int mois) {
         int cptInfractions = 0;
         for (Accelerometre accelerometre : donneesRecuesAccelerometre) {
             if (accelerometre.getDate().getYear() == annee &&   accelerometre.getDate().getMonthValue() == mois) {
@@ -33,6 +33,7 @@ public class FacadeUtilisateurImpl implements FacadeUtilisateur {
             }
         }
         this.assure.getBulletin().setInfractions(cptInfractions);
+        return cptInfractions;
     }
 
     public void scoreUpdate(){

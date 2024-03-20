@@ -50,5 +50,16 @@ public class Controller {
         }
     }
 
+    @GetMapping("/infractionsDuMois")
+    public ResponseEntity<String> getInfractionsDuMois() {
+        try {
+            LocalDate dateActuelle = LocalDate.now();
+            int infractionDuMois = facadeUtilisateur.compterInfractions(dateActuelle.getYear(), dateActuelle.getMonthValue());
+            return ResponseEntity.ok(String.valueOf(infractionDuMois));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Erreur lors de la récupération du taux de réduction : " + e.getMessage());
+        }
+    }
+
 
 }
