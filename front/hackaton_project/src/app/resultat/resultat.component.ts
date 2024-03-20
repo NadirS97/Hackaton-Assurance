@@ -32,22 +32,29 @@ export class ResultatComponent implements OnInit{
   constructor(private accelerometerService: AccelerometerService,private distanceTrackerService: GpsService) { }
 
   ngOnInit(): void {
+    const accelerationDataInit: any = { x: 0, y: 9, z: 4.5 };
+    let isInfraction=false;
     this.accelerometerService.getAcceleration((data: any) => {
-      console.log(this.accelerationData)
       this.accelerationData = data.accelerationIncludingGravity;
+
       console.log(this.accelerationData)
+      if ((this.accelerationData.x-accelerationDataInit.x) >=3 || this.accelerationData.y<9 || this.accelerationData.z<4.5){
+        isInfraction = true;
+        console.log('acceleration')
+      }
+      if (this.accelerationData.x < -1.5 || this.accelerationData.y< -1.5 || this.accelerationData.z<-1.5){
+        isInfraction = true;
+        console.log('freins brusque')
+      }
+      if (isInfraction){
+        console.log('post');
+        isInfraction=false
 
-
+      }
       this.distanceTrackerService.startTracking();
       this.distanceTrackerService.distanceSubject.subscribe(distance => {
         this.statistiquesConduite.kilometresParcourus = distance;
       });
     });
   }
-
-  /**
-   x:2
-   y:2
-   z:2
-   */
 }

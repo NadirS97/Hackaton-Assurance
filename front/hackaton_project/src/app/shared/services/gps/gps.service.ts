@@ -35,8 +35,8 @@ export class GpsService {
         this.startLat = position.coords.latitude;
         this.startLon = position.coords.longitude;
         const options = {
-          enableHighAccuracy: true,
-          timeout: 3000,
+          enableHighAccuracy: false,
+          timeout: 5000,
           maximumAge: 0
         };
 
@@ -49,7 +49,7 @@ export class GpsService {
             this.distanceSubject.next(this.totalDistance);
             this.startLat = currentLat;
             this.startLon = currentLon;
-            console.log('Distance parcourue :', this.totalDistance.toFixed(5), 'km');
+            console.log('Distance parcourue :', this.totalDistance.toFixed(2), 'km');
           },
           (error) => {
             console.error('Erreur de géolocalisation :', error);

@@ -15,7 +15,7 @@
     <div class="bg-white p-4 rounded-lg shadow-md">
       <h2 class="text-xl font-bold text-gray-800">Vos statistiques de conduite</h2>
       <ul class="list-disc my-4 mx-8">
-        <li class="text-gray-700">Kilomètres parcourus ce mois: {{ statistiquesConduite.kilometresParcourus  }} km</li>
+        <li class="text-gray-700">Kilomètres parcourus ce mois: {{ statistiquesConduite.kilometresParcourus.toFixed(2)  }} km</li>
         <li class="text-gray-700">Freinages brusques: {{ statistiquesConduite.freinagesBrusques }}</li>
         <li class="text-gray-700">Accélérations imprudentes: {{ statistiquesConduite.accelerationsImprudentes }}</li>
         <li class="text-gray-700">Nombre de points perdus: {{ statistiquesConduite.pointsPerdus }}</li>
