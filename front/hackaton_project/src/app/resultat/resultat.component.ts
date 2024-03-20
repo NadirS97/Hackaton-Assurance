@@ -9,16 +9,16 @@ import {GpsService} from "../shared/services/gps/gps.service";
 })
 export class ResultatComponent implements OnInit{
   assuranceAuto = {
-    prix: 100,
-    reduction: 10
+    prix: 120,
+    reduction: 25
   };
 
   statistiquesConduite = {
-    kilometresParcourus: 400,
+    kilometresParcourus: 0,
     freinagesBrusques: 20,
     accelerationsImprudentes: 20,
-    pointsPerdus: 100,
-    pointsRestants: 0
+    pointsPerdus: 0,
+    pointsRestants: 1000
   };
 
   conseilsConduite = [
@@ -27,22 +27,27 @@ export class ResultatComponent implements OnInit{
     "Conduisez prudemment et soyez attentifs aux autres usagers de la route."
   ];
 
-  distance: number = 0;
-
   accelerationData: any = { x: 0, y: 0, z: 0 };
 
   constructor(private accelerometerService: AccelerometerService,private distanceTrackerService: GpsService) { }
 
   ngOnInit(): void {
     this.accelerometerService.getAcceleration((data: any) => {
+      console.log(this.accelerationData)
       this.accelerationData = data.accelerationIncludingGravity;
+      console.log(this.accelerationData)
+
 
       this.distanceTrackerService.startTracking();
       this.distanceTrackerService.distanceSubject.subscribe(distance => {
-        this.distance = distance;
+        this.statistiquesConduite.kilometresParcourus = distance;
       });
     });
   }
 
-
+  /**
+   x:2
+   y:2
+   z:2
+   */
 }
