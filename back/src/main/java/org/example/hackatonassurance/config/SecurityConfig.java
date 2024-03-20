@@ -20,6 +20,8 @@ public class SecurityConfig {
                 .csrf(csrf ->csrf.disable())
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/accelerometre").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/infractions").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(conf -> conf.jwt(Customizer.withDefaults()))
