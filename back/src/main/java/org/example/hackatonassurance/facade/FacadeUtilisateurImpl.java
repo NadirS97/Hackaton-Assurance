@@ -1,5 +1,6 @@
 package org.example.hackatonassurance.facade;
 
+import org.example.hackatonassurance.dto.DonneesVehiculeDTO;
 import org.example.hackatonassurance.entities.Accelerometre;
 import org.example.hackatonassurance.entities.Assure;
 import org.example.hackatonassurance.entities.Bulletin;
@@ -13,10 +14,12 @@ public class FacadeUtilisateurImpl implements FacadeUtilisateur {
 
     private Assure assure;
     private final List<Accelerometre> donneesRecuesAccelerometre;
+    private final List<DonneesVehiculeDTO> listeDistancesParcourues;
 
     public FacadeUtilisateurImpl() {
         this.assure = new Assure(0,0, new Bulletin());
         this.donneesRecuesAccelerometre = new ArrayList<>();
+        this.listeDistancesParcourues = new ArrayList<>();
     }
 
     @Override
@@ -37,7 +40,7 @@ public class FacadeUtilisateurImpl implements FacadeUtilisateur {
     }
 
     public void scoreUpdate(){
-        int score = this.assure.getBulletin().getScore();
+        int score = 1000;
         int infractions = this.assure.getBulletin().getInfractions();
         int distanceTotale = this.assure.getBulletin().getDistanceTotaleParcourue();
         if (infractions > 0) {
@@ -71,7 +74,25 @@ public class FacadeUtilisateurImpl implements FacadeUtilisateur {
     }
 
     @Override
-    public void getDistanceParcourue(int distanceTotaleParcourue){
-        this.assure.getBulletin().setDistanceTotaleParcourue(distanceTotaleParcourue);
+    public void getDistanceParcourue(DonneesVehiculeDTO donneesVehicule){
+        listeDistancesParcourues.add(donneesVehicule);
+    }
+
+    @Override
+    public int getScore(){
+        return this.assure.getBulletin().getScore();
+    }
+
+    @Override
+    public int getDistanceParcourueDurantleMois(int annee, int mois){
+        int distanceParcourueDurantleMois = 0;
+        for (DonneesVehiculeDTO donneesVehicule : listeDistancesParcourues) {
+            if (donneesVehicule.getDate().getYear() == annee &&   donneesVehicule.getDate().getMonthValue() == mois) {
+                distanceParcourueDurantleMois += donneesVehicule.getDistanceParourue();
+            }
+        }
+        this.assure.getBulletin().setDistanceTotaleParcourue(distanceParcourueDurantleMois);
+        calculerTauxReduction();
+        return distanceParcourueDurantleMois;
     }
 }
