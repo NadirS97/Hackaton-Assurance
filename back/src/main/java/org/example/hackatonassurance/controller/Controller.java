@@ -1,11 +1,14 @@
 package org.example.hackatonassurance.controller;
 
+import org.example.hackatonassurance.dto.DonneesVehiculeDTO;
 import org.example.hackatonassurance.entities.Accelerometre;
 import org.example.hackatonassurance.facade.FacadeUtilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/")
@@ -29,27 +32,34 @@ public class Controller {
     }
 
     @PostMapping("/distanceParcourue")
-    public ResponseEntity<String> receptionDistanceParcourue(@RequestBody String distanceParcourue){
+    public ResponseEntity<String> receptionDistanceParcourue(@RequestBody DonneesVehiculeDTO DonneesVehicule){
         try {
-
+            facadeUtilisateur.getDistanceParcourue(DonneesVehicule);
             return ResponseEntity.ok("Distance parcourue reçue avec succès");
         }catch (Exception e) {
             return ResponseEntity.status(500).body("Erreur lors de la reception de la distance parcourue : " + e.getMessage());
         }
     }
 
-    @GetMapping("/infractions")
-    public ResponseEntity<String> recupMensualite() {
+    @GetMapping("/informationsScore")
+    public ResponseEntity<String> getInfractionsDuMois() {
         try {
             LocalDate dateActuelle = LocalDate.now();
-            facadeUtilisateur.compterInfractions(dateActuelle.getYear(), dateActuelle.getMonthValue());
-            int mensualite = facadeUtilisateur.calculerMensualite();
-            return ResponseEntity.ok(String.valueOf(mensualite));
+            int infractionsDuMois = facadeUtilisateur.compterInfractions(dateActuelle.getYear(), dateActuelle.getMonthValue());
+            int distanceTotaleDuMois = facadeUtilisateur.getDistanceParcourueDurantleMois(dateActuelle.getYear(), dateActuelle.getMonthValue());
+            int tauxReduction = facadeUtilisateur.calculerTauxReduction();
+            int scoreDuMois = facadeUtilisateur.getScore();
+
+            Map<String, Integer> informations = new HashMap<>();
+            informations.put("infractions", infractionsDuMois);
+            informations.put("distanceTotal", distanceTotaleDuMois);
+            informations.put("tauxReduction", tauxReduction);
+            informations.put("score", scoreDuMois);
+
+            return ResponseEntity.ok(String.valueOf(informations));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Erreur lors de la récupération de la mensualité : " + e.getMessage());
+            return ResponseEntity.status(500).body("Erreur lors de la récupération des données : " + e.getMessage());
         }
-
     }
-
 
 }

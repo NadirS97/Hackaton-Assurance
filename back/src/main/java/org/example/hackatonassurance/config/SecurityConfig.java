@@ -21,7 +21,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
                         .requestMatchers(HttpMethod.POST, "/accelerometre").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/infractions").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/informationsScore").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/distanceParcourue").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(conf -> conf.jwt(Customizer.withDefaults()))

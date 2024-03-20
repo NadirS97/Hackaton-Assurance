@@ -1,12 +1,13 @@
 package org.example.hackatonassurance.facade;
 
+import org.example.hackatonassurance.dto.DonneesVehiculeDTO;
 import org.example.hackatonassurance.entities.Accelerometre;
-import org.example.hackatonassurance.entities.Assure;
 
 public interface FacadeUtilisateur {
-    int calculerMensualite();
+    int calculerTauxReduction();
     void ajouterDonneesRecuesAccelerometre(Accelerometre accelerometre);
-    Assure getAssure();
-    void compterInfractions(int annee, int mois);
-
+    int compterInfractions(int annee, int mois);
+    void getDistanceParcourue(DonneesVehiculeDTO DonneesVehicule);
+    int getScore();
+    int getDistanceParcourueDurantleMois(int annee, int mois);
 }
