@@ -66,6 +66,9 @@ public class FacadeUtilisateurImpl implements FacadeUtilisateur {
         if (distanceTotale >= 2) {
             score -= (int) Math.floor((distanceTotale/2));
         }
+        if(score < 0){
+            score = 0;
+        }
         this.assure.getBulletin().setScore(score);
     }
 
