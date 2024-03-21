@@ -49,7 +49,6 @@ export class GpsService {
             this.distanceSubject.next(this.totalDistance);
             this.startLat = currentLat;
             this.startLon = currentLon;
-            console.log('Distance parcourue :', this.totalDistance.toFixed(2), 'km');
           },
           (error) => {
             console.error('Erreur de géolocalisation :', error);
