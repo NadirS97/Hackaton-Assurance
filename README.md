@@ -43,8 +43,10 @@ Front:
 
 Il suffit d'aller sur [http://localhost:4200/connexion](http://localhost:4200/connexion)
 
-Si vous rencontrer une difficulté avec docker
-
+Si vous rencontrer une difficulté avec docker :
+Vous pouvez opter pour un lancement manuel 
+- Pour le back via soit le run du main de HackatonAssuranceApplication soit en executant la commande ```mvn spring-boot:run```
+- Pour le front il suffit de se positionner dans le repertoire : /front/hackaton_project/ et executer la commande ```ng serve```
 
 
 
