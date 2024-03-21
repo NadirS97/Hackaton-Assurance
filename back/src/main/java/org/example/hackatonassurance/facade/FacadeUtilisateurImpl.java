@@ -7,7 +7,9 @@ import org.example.hackatonassurance.entities.Bulletin;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class FacadeUtilisateurImpl implements FacadeUtilisateur {
@@ -28,15 +30,30 @@ public class FacadeUtilisateurImpl implements FacadeUtilisateur {
     }
 
     @Override
-    public int compterInfractions(int annee, int mois) {
+    public Map<String, Integer> compterInfractions(int annee, int mois) {
         int cptInfractions = 0;
+        int cptAccelerationForte = 0;
+        int cptFreinageBrusque =0;
+
+        Map<String, Integer> detailsInfractions = new HashMap<>();
+
         for (Accelerometre accelerometre : donneesRecuesAccelerometre) {
             if (accelerometre.getDate().getYear() == annee &&   accelerometre.getDate().getMonthValue() == mois) {
                 cptInfractions++;
             }
+            if (accelerometre.getX()<0 || accelerometre.getY()<0 || accelerometre.getZ()<0) {
+                cptFreinageBrusque++;
+            } else if (accelerometre.getX()>1 || accelerometre.getY()>0 || accelerometre.getZ()<4.5) {
+                cptAccelerationForte++;
+            }
         }
+
+        detailsInfractions.put("nbTotalInfractions", cptInfractions);
+        detailsInfractions.put("accelerationForte", cptAccelerationForte);
+        detailsInfractions.put("freinageBrusque", cptFreinageBrusque);
+
         this.assure.getBulletin().setInfractions(cptInfractions);
-        return cptInfractions;
+        return detailsInfractions;
     }
 
     public void scoreUpdate(){
