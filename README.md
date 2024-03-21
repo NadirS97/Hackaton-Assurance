@@ -5,9 +5,9 @@
 - El Ghali TAHRI JOUTEY
 - Mohamed-Hamza AIT BENAISSA
 - Nadir SAIAH
+- Yohann CHOLLEY
 - Mohammed ET-TAZY
-- Yohann CHOLLEY
-
+  
 ### Année : Master 1 MIAGE - 2022
 
 ------------
