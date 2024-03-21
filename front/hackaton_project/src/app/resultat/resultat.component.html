@@ -1,23 +1,23 @@
-<div class="container h-screen mx-auto pt-16">
-  <div class="text-center">
-    <h1 class="text-3xl font-bold text-gray-800 mb-4">Bienvenue Hackaton</h1>
+<div class="container h-full mx-auto pt-16">
+  <div class="text-center mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 my-4">Bienvenue Hackaton</h1>
     <p class="text-lg text-gray-600">Votre espace personnel</p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
     <div class="bg-white p-4 rounded-lg shadow-md">
       <h2 class="text-xl font-bold text-gray-800">Votre assurance auto</h2>
       <ul class="list-disc my-4 mx-8">
         <li class="text-gray-700">Prix de base: {{ assuranceAuto.prix }} €</li>
         <li class="text-gray-700 mb-3">Réduction: {{ assuranceAuto.reduction }} %</li>
-        <hr>
+        <hr class="my-3 border-gray-300">
         <li class="text-gray-700 mt-3">Prix après réduction: {{ assuranceAuto.prix -(assuranceAuto.prix * assuranceAuto.reduction/100) }} €</li>
       </ul>
     </div>
     <div class="bg-white p-4 rounded-lg shadow-md">
       <h2 class="text-xl font-bold text-gray-800">Vos statistiques de conduite</h2>
       <ul class="list-disc my-4 mx-8">
-        <li class="text-gray-700">Kilomètres parcourus ce mois: {{ statistiquesConduite.kilometresParcourus  }} km</li>
+        <li class="text-gray-700">Kilomètres parcourus ce mois: {{ statistiquesConduite.kilometresParcourus.toFixed(5)  }} km</li>
         <li class="text-gray-700">Freinages brusques: {{ statistiquesConduite.freinagesBrusques }}</li>
         <li class="text-gray-700">Accélérations imprudentes: {{ statistiquesConduite.accelerationsImprudentes }}</li>
         <li class="text-gray-700">Nombre de points perdus: {{ statistiquesConduite.pointsPerdus }}</li>
@@ -26,7 +26,34 @@
     </div>
   </div>
 
-  <div class="mt-10">
+  <div class="bg-white p-8 rounded-lg shadow-md mb-8">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Nos Avantages</h2>
+    <p class="text-gray-600 mb-8">Chaque conducteur démarre avec un score de 1000 points, qui diminue progressivement en fonction de ses actions sur la route.</p>
+    <ul class="list-disc space-y-4">
+      <li class="flex items-center space-x-4">
+        <span class="text-green-500 font-semibold">✓</span>
+        <span class="text-gray-700">Réduction de -25% s'applique si le score est supérieur à 800 à la fin du mois</span>
+      </li>
+      <li class="flex items-center space-x-4">
+        <span class="text-green-500 font-semibold">✓</span>
+        <span class="text-gray-700">Réduction de -20% s'applique si le score est compris entre 800 et 601 à la fin du mois</span>
+      </li>
+      <li class="flex items-center space-x-4">
+        <span class="text-green-500 font-semibold">✓</span>
+        <span class="text-gray-700">Réduction de -15% s'applique si le score est compris entre 599 et 400 à la fin du mois</span>
+      </li>
+      <li class="flex items-center space-x-4">
+        <span class="text-green-500 font-semibold">✓</span>
+        <span class="text-gray-700">Réduction de -10% s'applique si le score est compris entre 400 et 201 à la fin du mois</span>
+      </li>
+      <li class="flex items-center space-x-4">
+        <span class="text-green-500 font-semibold">✓</span>
+        <span class="text-gray-700">Réduction de -5% s'applique si le score est compris entre 200 et 1 à la fin du mois</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="pb-8">
     <h2 class="text-xl font-bold text-gray-800">Conseils pour améliorer votre conduite</h2>
     <ul class="list-disc my-4 mx-8">
       <li *ngFor="let conseil of conseilsConduite" class="text-gray-700">{{ conseil }}</li>
