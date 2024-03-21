@@ -33,6 +33,8 @@ export class ResultatComponent implements OnInit{
   constructor(private accelerometerService: AccelerometerService,private distanceTrackerService: GpsService, private hackatonService :HackatonService) { }
 
   ngOnInit(): void {
+    const date = new Date();
+    let todaysDate : string = `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + (date.getDay() + 1)).slice(-2)}`;
     let isInfraction=false;
     this.accelerometerService.getAcceleration((data: any) => {
       this.accelerationData = data.accelerationIncludingGravity;
@@ -42,11 +44,18 @@ export class ResultatComponent implements OnInit{
         this.hackatonService.accelerometre(this.accelerationData).subscribe();
         isInfraction=false
       }
-      this.hackatonService.getInfractionsDuMois().subscribe();
+      this.hackatonService.getInfractionsDuMois().subscribe((response)=>{
+
+      });
       this.distanceTrackerService.startTracking();
       this.distanceTrackerService.distanceSubject.subscribe(distance => {
         this.statistiquesConduite.kilometresParcourus = distance;
-      });
+        console.log(distance);
+        //this.hackatonService.sendDistanceParcourue(distance,todaysDate);
+      },
+        (error) => {
+          console.error('Erreur lors de la requête :', error);
+        });
     });
   }
 }

@@ -24,7 +24,7 @@ export class AccelerometerService {
             x: this.accelerometer.x,
             y: this.accelerometer.y,
             z: this.accelerometer.z,
-            date : `${date.getMonth()+1}/${date.getFullYear()}`
+            date : `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + (date.getDay() + 1)).slice(-2)}`
           },
         });
       });

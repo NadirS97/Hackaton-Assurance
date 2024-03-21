@@ -12,11 +12,11 @@ export class HackatonService {
 
   accelerometre(accelerometre : Accelerometre): Observable<any> {
     const url = 'http://localhost:8081/accelerometre';
-    return this.http.post(url, accelerometre, {observe: 'response'}).pipe(
-      tap(response => {
-        console.log(response)
-      })
-    );
+    return this.http.post(url, accelerometre, {observe: 'response', responseType: 'text' });
+  }
+  sendDistanceParcourue(distance : number, date : string): Observable<any> {
+    const url = 'http://localhost:8081/distanceParcourue';
+    return this.http.post(url, {distance, date}, {observe: 'response', responseType: 'text' });
   }
   getInfractionsDuMois() : Observable<any>{
     return this.http.get<any>('http://localhost:8081/informationsScore',{observe: 'response'});

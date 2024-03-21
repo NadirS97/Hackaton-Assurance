@@ -1,5 +1,6 @@
 package org.example.hackatonassurance.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.hackatonassurance.dtos.DonneesVehiculeDTO;
 import org.example.hackatonassurance.entities.Accelerometre;
 import org.example.hackatonassurance.facade.FacadeUtilisateur;
@@ -57,7 +58,10 @@ public class Controller {
             informations.put("tauxReduction", tauxReduction);
             informations.put("score", scoreDuMois);
 
-            return ResponseEntity.ok(String.valueOf(informations));
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonInformations = objectMapper.writeValueAsString(informations);
+
+            return ResponseEntity.ok(jsonInformations);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Erreur lors de la récupération des données : " + e.getMessage());
         }
