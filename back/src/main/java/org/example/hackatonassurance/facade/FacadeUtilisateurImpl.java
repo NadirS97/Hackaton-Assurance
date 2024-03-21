@@ -1,6 +1,6 @@
 package org.example.hackatonassurance.facade;
 
-import org.example.hackatonassurance.dto.DonneesVehiculeDTO;
+import org.example.hackatonassurance.dtos.DonneesVehiculeDTO;
 import org.example.hackatonassurance.entities.Accelerometre;
 import org.example.hackatonassurance.entities.Assure;
 import org.example.hackatonassurance.entities.Bulletin;
