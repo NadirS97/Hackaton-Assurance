@@ -41,9 +41,9 @@ public class FacadeUtilisateurImpl implements FacadeUtilisateur {
             if (accelerometre.getDate().getYear() == annee &&   accelerometre.getDate().getMonthValue() == mois) {
                 cptInfractions++;
             }
-            if (accelerometre.getX()<0 || accelerometre.getY()<0 || accelerometre.getZ()<0) {
+            if (accelerometre.getX() < -1.5 || accelerometre.getY() < -1.5 || accelerometre.getZ() < -1.5) {
                 cptFreinageBrusque++;
-            } else if (accelerometre.getX()>1 || accelerometre.getY()>0 || accelerometre.getZ()<4.5) {
+            } else if (accelerometre.getX()>=3 || accelerometre.getY()<8.5 && accelerometre.getY()<7 || accelerometre.getZ()<4.5&&accelerometre.getZ()<3) {
                 cptAccelerationForte++;
             }
         }
