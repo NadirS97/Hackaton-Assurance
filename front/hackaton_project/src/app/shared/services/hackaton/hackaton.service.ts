@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ConfigService} from "../config.service";
 import {Observable, tap} from "rxjs";
 import {Accelerometre} from "../../model/accelerometre";
 
@@ -8,17 +7,18 @@ import {Accelerometre} from "../../model/accelerometre";
   providedIn: 'root'
 })
 export class HackatonService {
-  constructor(private http: HttpClient, private  config: ConfigService) { }
+
+  constructor(private http: HttpClient) { }
 
   accelerometre(accelerometre : Accelerometre): Observable<any> {
-    const url = `${this.config.baseUrl}inscription`;
+    const url = 'http://localhost:8081/accelerometre';
     return this.http.post(url, accelerometre, {observe: 'response'}).pipe(
       tap(response => {
         console.log(response)
       })
     );
   }
-  getJoueurParNom() : Observable<any>{
-    return this.http.get<any>(`${this.config.baseUrl}`,{observe: 'response'});
+  getInfractionsDuMois() : Observable<any>{
+    return this.http.get<any>('http://localhost:8081/informationsScore',{observe: 'response'});
   }
 }

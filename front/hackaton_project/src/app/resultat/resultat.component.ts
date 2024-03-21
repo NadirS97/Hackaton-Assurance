@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AccelerometerService} from "../shared/services/accelerometer/accelerometer.service";
 import {GpsService} from "../shared/services/gps/gps.service";
+import {HackatonService} from "../shared/services/hackaton/hackaton.service";
 
 @Component({
   selector: 'app-resultat',
@@ -27,30 +28,21 @@ export class ResultatComponent implements OnInit{
     "Conduisez prudemment et soyez attentifs aux autres usagers de la route."
   ];
 
-  accelerationData: any = { x: 0, y: 0, z: 0 };
+  accelerationData: any = { x: 0, y: 9, z: 4.5 };
 
-  constructor(private accelerometerService: AccelerometerService,private distanceTrackerService: GpsService) { }
+  constructor(private accelerometerService: AccelerometerService,private distanceTrackerService: GpsService, private hackatonService :HackatonService) { }
 
   ngOnInit(): void {
-    const accelerationDataInit: any = { x: 0, y: 9, z: 4.5 };
     let isInfraction=false;
     this.accelerometerService.getAcceleration((data: any) => {
       this.accelerationData = data.accelerationIncludingGravity;
-
-      console.log(this.accelerationData)
-      if ((this.accelerationData.x-accelerationDataInit.x) >=3 || this.accelerationData.y<9 || this.accelerationData.z<4.5){
-        isInfraction = true;
-        console.log('acceleration')
-      }
-      if (this.accelerationData.x < -1.5 || this.accelerationData.y< -1.5 || this.accelerationData.z<-1.5){
-        isInfraction = true;
-        console.log('freins brusque')
-      }
+      if ((this.accelerationData.x-0) >=3 || this.accelerationData.y<9 || this.accelerationData.z<4.5)  isInfraction = true;
+      if (this.accelerationData.x < -1.5 || this.accelerationData.y< -1.5 || this.accelerationData.z<-1.5)  isInfraction = true;
       if (isInfraction){
-        console.log('post');
+        this.hackatonService.accelerometre(this.accelerationData).subscribe();
         isInfraction=false
-
       }
+      this.hackatonService.getInfractionsDuMois().subscribe();
       this.distanceTrackerService.startTracking();
       this.distanceTrackerService.distanceSubject.subscribe(distance => {
         this.statistiquesConduite.kilometresParcourus = distance;

@@ -1,10 +1,10 @@
 export class Accelerometre {
-  x : string;
-  y : string;
-  z : string;
-  date : Date;
+  x : number;
+  y : number;
+  z : number;
+  date : string;
 
-  constructor(x: string, y: string, z: string, date: Date) {
+  constructor(x: number, y: number, z: number, date: string) {
     this.x = x;
     this.y = y;
     this.z = z;
