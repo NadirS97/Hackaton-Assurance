@@ -37,37 +37,39 @@ export class ResultatComponent implements OnInit{
     const date = new Date();
     let todaysDate : string = `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + (date.getDay() + 1)).slice(-2)}`;
     let isInfraction=false;
+    this.getInfogetInfractionsDuMois();
     this.accelerometerService.getAcceleration((data: any) => {
       this.accelerationData = data.accelerationIncludingGravity;
       if ((this.accelerationData.x) >=3 || (this.accelerationData.y<8.5 && this.accelerationData.y<7)|| (this.accelerationData.z<4.5&&this.accelerationData.z>3))  isInfraction = true;
       if (this.accelerationData.x < -1.5 || this.accelerationData.y< -1.5 || this.accelerationData.z<-1.5)  isInfraction = true;
       if (isInfraction){
         this.hackatonService.accelerometre(this.accelerationData).subscribe();
-        console.log('infraction')
         isInfraction=false
+        this.getInfogetInfractionsDuMois();
       }
-      this.hackatonService.getInfractionsDuMois().subscribe((response)=>{
-        console.log(response.body)
-        this.assuranceAuto.reduction=response.body.tauxReduction;
-        this.statistiquesConduite.pointsPerdus = 1000-response.body.score;
-        this.statistiquesConduite.pointsRestants = response.body.score;
-        this.statistiquesConduite.kilometresParcourus = response.body.distanceTotal;
-
-      });
       this.distanceTrackerService.startTracking();
       this.distanceTrackerService.distanceSubject.subscribe(distance => {
         if (distance !== previousDistance) {
-            this.statistiquesConduite.kilometresParcourus = distance;
-            console.log('in');
-          console.log(distance,todaysDate);
-            this.hackatonService.sendDistanceParcourue(distance, todaysDate).subscribe();
-
-            previousDistance = distance;
-          }
+          this.hackatonService.sendDistanceParcourue(Math.floor(distance-previousDistance), todaysDate).subscribe(()=>{
+            this.getInfogetInfractionsDuMois();
+          });
+          previousDistance = distance;
+        }
       },
         (error) => {
           console.error('Erreur lors de la requête :', error);
         });
+    });
+  }
+
+  public getInfogetInfractionsDuMois() : void{
+    this.hackatonService.getInfractionsDuMois().subscribe((response)=>{
+      this.assuranceAuto.reduction=response.body.tauxReduction;
+      this.statistiquesConduite.pointsPerdus = 1000-response.body.score;
+      this.statistiquesConduite.pointsRestants = response.body.score;
+      this.statistiquesConduite.kilometresParcourus = response.body.distanceTotal;
+      this.statistiquesConduite.freinagesBrusques=response.body.freinageBrusque;
+      this.statistiquesConduite.accelerationsImprudentes=response.body.accelerationForte;
     });
   }
 }

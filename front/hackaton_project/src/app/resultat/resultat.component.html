@@ -8,14 +8,16 @@
     <div class="bg-white p-4 rounded-lg shadow-md">
       <h2 class="text-xl font-bold text-gray-800">Votre assurance auto</h2>
       <ul class="list-disc my-4 mx-8">
-        <li class="text-gray-700">Prix: {{ assuranceAuto.prix }} €</li>
-        <li class="text-gray-700">Réduction: {{ assuranceAuto.reduction }} %</li>
+        <li class="text-gray-700">Prix de base: {{ assuranceAuto.prix }} €</li>
+        <li class="text-gray-700 mb-3">Réduction: {{ assuranceAuto.reduction }} %</li>
+        <hr>
+        <li class="text-gray-700 mt-3">Prix après réduction: {{ assuranceAuto.prix -(assuranceAuto.prix * assuranceAuto.reduction/100) }} €</li>
       </ul>
     </div>
     <div class="bg-white p-4 rounded-lg shadow-md">
       <h2 class="text-xl font-bold text-gray-800">Vos statistiques de conduite</h2>
       <ul class="list-disc my-4 mx-8">
-        <li class="text-gray-700">Kilomètres parcourus ce mois: {{ statistiquesConduite.kilometresParcourus.toFixed(2)  }} km</li>
+        <li class="text-gray-700">Kilomètres parcourus ce mois: {{ statistiquesConduite.kilometresParcourus  }} km</li>
         <li class="text-gray-700">Freinages brusques: {{ statistiquesConduite.freinagesBrusques }}</li>
         <li class="text-gray-700">Accélérations imprudentes: {{ statistiquesConduite.accelerationsImprudentes }}</li>
         <li class="text-gray-700">Nombre de points perdus: {{ statistiquesConduite.pointsPerdus }}</li>
@@ -29,11 +31,6 @@
     <ul class="list-disc my-4 mx-8">
       <li *ngFor="let conseil of conseilsConduite" class="text-gray-700">{{ conseil }}</li>
     </ul>
-  </div>
-  <div id="accelerationData">
-    <p>X: {{ accelerationData.x }}</p>
-    <p>Y: {{ accelerationData.y }}</p>
-    <p>Z: {{ accelerationData.z }}</p>
   </div>
 
 </div>

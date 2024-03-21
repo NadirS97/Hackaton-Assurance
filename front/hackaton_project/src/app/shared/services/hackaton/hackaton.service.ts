@@ -14,9 +14,9 @@ export class HackatonService {
     const url = 'http://localhost:8081/accelerometre';
     return this.http.post(url, accelerometre, {observe: 'response', responseType: 'text' });
   }
-  sendDistanceParcourue(distance : number, date : string): Observable<any> {
+  sendDistanceParcourue(distanceParourue : number, date : string): Observable<any> {
     const url = 'http://localhost:8081/distanceParcourue';
-    return this.http.post(url, {distance, date}, {observe: 'response', responseType: 'text' });
+    return this.http.post(url, {distanceParourue, date}, {observe: 'response', responseType: 'text' });
   }
   getInfractionsDuMois() : Observable<any>{
     return this.http.get<any>('http://localhost:8081/informationsScore',{observe: 'response'});

@@ -33,10 +33,10 @@ public class Controller {
     }
 
     @PostMapping("/distanceParcourue")
-    public ResponseEntity<String> receptionDistanceParcourue(@RequestBody DonneesVehiculeDTO DonneesVehicule){
+    public ResponseEntity<String> receptionDistanceParcourue(@RequestBody DonneesVehiculeDTO donneesVehicule){
         try {
-            facadeUtilisateur.getDistanceParcourue(DonneesVehicule);
-            return ResponseEntity.ok("Distance parcourue reçue avec succès");
+            facadeUtilisateur.getDistanceParcourue(donneesVehicule);
+            return ResponseEntity.ok("Distance parcourue reçue avec succès"+donneesVehicule.getDistanceParourue());
         }catch (Exception e) {
             return ResponseEntity.status(500).body("Erreur lors de la reception de la distance parcourue : " + e.getMessage());
         }
