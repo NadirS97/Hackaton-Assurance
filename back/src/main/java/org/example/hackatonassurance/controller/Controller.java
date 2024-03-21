@@ -16,7 +16,6 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:4200")
 public class Controller {
 
-    @Autowired
     private final FacadeUtilisateur facadeUtilisateur;
 
     public Controller(FacadeUtilisateur facadeUtilisateur) {
@@ -47,13 +46,15 @@ public class Controller {
     public ResponseEntity<String> getInfractionsDuMois() {
         try {
             LocalDate dateActuelle = LocalDate.now();
-            int infractionsDuMois = facadeUtilisateur.compterInfractions(dateActuelle.getYear(), dateActuelle.getMonthValue());
+            Map<String, Integer> infractionsDuMois = facadeUtilisateur.compterInfractions(dateActuelle.getYear(), dateActuelle.getMonthValue());
             int distanceTotaleDuMois = facadeUtilisateur.getDistanceParcourueDurantleMois(dateActuelle.getYear(), dateActuelle.getMonthValue());
             int tauxReduction = facadeUtilisateur.calculerTauxReduction();
             int scoreDuMois = facadeUtilisateur.getScore();
 
             Map<String, Integer> informations = new HashMap<>();
-            informations.put("infractions", infractionsDuMois);
+            informations.put("infractions", infractionsDuMois.get("nbTotalInfractions"));
+            informations.put("accelerationForte", infractionsDuMois.get("accelerationForte"));
+            informations.put("freinageBrusque", infractionsDuMois.get("freinageBrusque"));
             informations.put("distanceTotal", distanceTotaleDuMois);
             informations.put("tauxReduction", tauxReduction);
             informations.put("score", scoreDuMois);
