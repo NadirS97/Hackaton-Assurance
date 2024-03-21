@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  projet :
+    build: ./back/
+    ports:
+      - "8081:8081"
+
+  front:
+    build:
+      context: ./front/hackaton_project/
+    ports:
+      - "4200:4200"
+    depends_on:
+      - projet
