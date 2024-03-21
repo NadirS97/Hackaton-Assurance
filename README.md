@@ -8,8 +8,7 @@
 - Yohann CHOLLEY
 - Mohammed ET-TAZY
   
-### Année : Master 1 MIAGE - 2022
-
+### Année : Master 2 MIAGE - 2024
 ------------
 
 **Contexte :** Proposition et développement d'une idée innovante dans le monde de l'assurance lors d'un hackaton, sous forme d'un sprint de 3 jours. 
