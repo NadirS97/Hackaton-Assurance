@@ -1,11 +1,11 @@
-package org.example.hackatonassurance.dto;
+package org.example.hackatonassurance.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -13,5 +13,5 @@ import java.time.LocalDateTime;
 @ToString
 public class DonneesVehiculeDTO {
     private int distanceParourue;
-    private LocalDateTime date;
+    private LocalDate date;
 }

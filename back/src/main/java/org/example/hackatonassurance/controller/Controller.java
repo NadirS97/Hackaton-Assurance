@@ -1,6 +1,6 @@
 package org.example.hackatonassurance.controller;
 
-import org.example.hackatonassurance.dto.DonneesVehiculeDTO;
+import org.example.hackatonassurance.dtos.DonneesVehiculeDTO;
 import org.example.hackatonassurance.entities.Accelerometre;
 import org.example.hackatonassurance.facade.FacadeUtilisateur;
 import org.springframework.beans.factory.annotation.Autowired;

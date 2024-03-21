@@ -1,4 +1,4 @@
-### Traitement des informations venant de l'accéléromètre
+### Reception des informations venant de l'accéléromètre
 
 POST http://localhost:8081/accelerometre
 Content-Type: application/json
@@ -7,22 +7,19 @@ Content-Type: application/json
   "x": 0.0,
   "y": 0.0,
   "z": 0.0,
-  "date": "2024-03-20T00:00:00.000Z"
+  "date": "2024-03-20"
 }
 
-### Traitement de la distance parcourue
+### Reception de la distance parcourue par trajet
 
 POST http://localhost:8081/distanceParcourue
 Content-Type: application/json
 
 {
   "distanceParourue": 1000,
-  "date": "2024-03-20T00:00:00.000Z"
+  "date": "2024-03-20"
 }
 
-### Récupération des informations du mois : le nombre d'infractions, la distance parcourue, le taux de réduction ainsi que le score
+### Envoi des données du mois : le nombre d'infractions, la distance parcourue, le taux de réduction ainsi que le score
 
 GET http://localhost:8081/informationsScore
-
-
-
